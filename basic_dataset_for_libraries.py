@@ -9,14 +9,33 @@ import requests
 
 DATA_SOURCE = './data/basic-dataset-for-libraries-2023-enhanced.csv'
 OUTPUT_DIR = './data/isochrones/basic-dataset-for-libraries-2023'
-ORS_API_KEY = ''
+ORS_API_KEY = '5b3ce3597851110001cf624843265134879f4af891bea9acf99ebbc7'
 
 MODE = 'foot-walking'
+LOCATION_TYPES = ['destination']
+ATTRIBUTES = ['area', 'total_pop', 'reachfactor']
+INTERVALS = [5, 10, 15, 20, 25, 30]
 
 
 def make_slug(text):
     ''' Create a slug from a text '''
     return text.lower().replace(' ', '-')
+
+
+def add_isochrone_props(location_data, obj):
+    ''' Add isochrone properties to the object '''
+    features = location_data['features']
+    # 15 min isochrone has a property value of seconds = 900.0
+    # 30 min isochrone has a property value of seconds = 1800.0
+    # Find each isochrone and get the area, total_pop and reachfactor
+    for feature in features:
+        minutes = round(feature['properties']['value'] / 60)
+
+        for interval in INTERVALS:
+            if minutes == interval:
+                for attribute in ATTRIBUTES:
+                    obj[str(interval) + 'm_' +
+                        attribute] = feature['properties'][attribute]
 
 
 def run():
@@ -36,13 +55,9 @@ def run():
                            'longitude': row[11], 'latitude': row[12]}
                 libraries.append(library)
 
-    location_types = ['start', 'destination']
-
     locations = []  # Array to store the locations for which isochrones will be generated
     for library in libraries:
-        for location_type in location_types:
-
-            # Example: https://api.openrouteservice.org/v2/isochrones/driving-car
+        for location_type in LOCATION_TYPES:
             file_dir = OUTPUT_DIR + '/' + library['service'] + '/'
             base_file_name = make_slug(library['name']) + '_' + \
                 library['longitude'] + '_' + \
@@ -50,48 +65,54 @@ def run():
 
             file_path = file_dir + base_file_name + '.geojson'
 
+            location_obj = {
+                'service': library['service'],
+                'name': library['name'],
+                'longitude': library['longitude'],
+                'latitude': library['latitude'],
+                'location_type': location_type,
+                'file_path': file_path
+            }
             if not os.path.exists(file_path):
-                locations.append({
-                    'service': library['service'],
-                    'name': library['name'],
-                    'longitude': library['longitude'],
-                    'latitude': library['latitude'],
-                    'location_type': location_type,
-                    'file_path': file_path
-                })
+                location_obj['complete'] = False
+            else:
+               # Get the data from the file
+                with open(file_path, 'r', encoding='utf-8') as location_file:
+                    location_data = json.load(location_file)
+                    add_isochrone_props(location_data, location_obj)
+                    location_obj['complete'] = True
 
-    for location_type in location_types:
+            locations.append(location_obj)
+
+    for location_type in LOCATION_TYPES:
 
         # The call to the API can be done in batches of 5 locations at once
         batch_size = 5
 
-        locations = [
-            location for location in locations if location['location_type'] == location_type]
+        type_locations = [
+            location for location in locations if location['location_type'] == location_type and not location['complete']]
 
-        location_batches = [locations[i:i + batch_size]
-                            for i in range(0, len(locations), batch_size)]
+        location_batches = [type_locations[i:i + batch_size]
+                            for i in range(0, len(type_locations), batch_size)]
 
         for batch in location_batches:
 
-            attributes = ['total_pop']
-            intervals = [300, 600, 900, 1200, 1500, 1800]
+            latlngs = []
 
-            # Locations is an array of lng/lat coordinates
-            locations = []
+            for batch_item in batch:
+                latlngs.append(
+                    [float(batch_item['longitude']), float(batch_item['latitude'])])
 
-            for location in batch:
-                locations.append(
-                    [float(location['longitude']), float(location['latitude'])])
-
+            # Create a new array of seconds from the intervals
+            interval_seconds = [interval * 60 for interval in INTERVALS]
             body = {
-                'locations': locations,
-                'range': intervals,
-                'attributes': attributes
+                'locations': latlngs,
+                'range': interval_seconds,
+                'attributes': ATTRIBUTES
             }
 
             headers = {
-                'Accept': 'application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8',
-                'Authorization': ORS_API_KEY}
+                'Accept': 'application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8', 'Authorization': ORS_API_KEY}
 
             base_url = 'https://api.openrouteservice.org/v2/isochrones/'
 
@@ -107,8 +128,8 @@ def run():
                 # Isochrones are embedded in a geojson feature collection with group_index property
                 # Create a feature collection for each group_index
 
-                # For each location in the locations array create a new feature collection
-                for (idx, location) in enumerate(batch):
+                # For each item in the batch array create a new feature collection
+                for (idx, batch_item) in enumerate(batch):
 
                     feature_collection = {
                         'type': 'FeatureCollection',
@@ -122,16 +143,43 @@ def run():
 
                     # Create the directory if it does not exist
                     os.makedirs(os.path.dirname(
-                        location['file_path']), exist_ok=True)
+                        batch_item['file_path']), exist_ok=True)
 
                     # Write out the feature collection to a file
-                    with open(location['file_path'], 'w', encoding='utf-8') as location_file:
+                    with open(batch_item['file_path'], 'w', encoding='utf-8') as location_file:
                         json.dump(feature_collection, location_file)
+
+                    # Get the original location object and add the isochrone properties
+                    for loc in locations:
+                        if loc['file_path'] == batch_item['file_path']:
+                            add_isochrone_props(feature_collection, loc)
+                            loc['complete'] = True
 
                 time.sleep(5)
 
             else:
                 print('Error: ', response.status_code)
+
+    # Now write out a CSV for all the locations array
+    with open(OUTPUT_DIR + '/locations.csv', 'w', encoding='utf-8') as locations_file:
+        location_writer = csv.writer(locations_file, delimiter=',',
+                                     quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        headers = ['service', 'name', 'longitude', 'latitude',
+                   'location_type', 'file_path']
+        for interval in INTERVALS:
+            for attribute in ATTRIBUTES:
+                headers.append(str(interval) + 'm_' + attribute)
+
+        location_writer.writerow(headers)
+        row = []
+        for location in locations:
+            row = [location['service'], location['name'], location['longitude'],
+                   location['latitude'], location['location_type']]
+            for interval in INTERVALS:
+                for attribute in ATTRIBUTES:
+                    row.append(location[str(interval) + 'm_' + attribute])
+
+            location_writer.writerow(row)
 
 
 run()
