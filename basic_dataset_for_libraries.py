@@ -9,7 +9,7 @@ import requests
 
 DATA_SOURCE = './data/basic-dataset-for-libraries-2023-enhanced.csv'
 OUTPUT_DIR = './data/isochrones/basic-dataset-for-libraries-2023'
-ORS_API_KEY = '5b3ce3597851110001cf624843265134879f4af891bea9acf99ebbc7'
+ORS_API_KEY = ''
 
 MODE = 'foot-walking'
 LOCATION_TYPES = ['destination']
@@ -161,7 +161,7 @@ def run():
                 print('Error: ', response.status_code)
 
     # Now write out a CSV for all the locations array
-    with open(OUTPUT_DIR + '/locations.csv', 'w', encoding='utf-8') as locations_file:
+    with open(OUTPUT_DIR + '/locations.csv', 'w', encoding='utf-8', newline='') as locations_file:
         location_writer = csv.writer(locations_file, delimiter=',',
                                      quotechar='"', quoting=csv.QUOTE_MINIMAL)
         headers = ['service', 'name', 'longitude', 'latitude',
@@ -177,7 +177,8 @@ def run():
                    location['latitude'], location['location_type']]
             for interval in INTERVALS:
                 for attribute in ATTRIBUTES:
-                    row.append(location[str(interval) + 'm_' + attribute])
+                    if location['complete']:
+                        row.append(location[str(interval) + 'm_' + attribute])
 
             location_writer.writerow(row)
 
