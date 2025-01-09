@@ -10,6 +10,7 @@ import requests
 DATA_SOURCE = './data/basic-dataset-for-libraries-2023-enhanced.csv'
 OUTPUT_DIR = './data/isochrones/basic-dataset-for-libraries-2023'
 ORS_API_KEY = ''
+OUTPUT_CSV = OUTPUT_DIR + '/basic-dataset-for-libraries-2023-analysis.csv'
 
 MODE = 'foot-walking'
 LOCATION_TYPES = ['destination']
@@ -19,7 +20,7 @@ INTERVALS = [5, 10, 15, 20, 25, 30]
 
 def make_slug(text):
     ''' Create a slug from a text '''
-    return text.lower().replace(' ', '-')
+    return text.lower().replace(' ', '-').replace('/', '-')
 
 
 def add_isochrone_props(location_data, obj):
@@ -158,14 +159,13 @@ def run():
                 time.sleep(5)
 
             else:
-                print('Error: ', response.status_code)
+                print(body)
 
     # Now write out a CSV for all the locations array
-    with open(OUTPUT_DIR + '/locations.csv', 'w', encoding='utf-8', newline='') as locations_file:
+    with open(OUTPUT_CSV, 'w', encoding='utf-8', newline='') as locations_file:
         location_writer = csv.writer(locations_file, delimiter=',',
                                      quotechar='"', quoting=csv.QUOTE_MINIMAL)
-        headers = ['service', 'name', 'longitude', 'latitude',
-                   'location_type', 'file_path']
+        headers = ['service', 'name', 'longitude', 'latitude', 'location_type']
         for interval in INTERVALS:
             for attribute in ATTRIBUTES:
                 headers.append(str(interval) + 'm_' + attribute)

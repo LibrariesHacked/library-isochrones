@@ -1,4 +1,4 @@
-service,name,longitude,latitude,location_type,file_path,5m_area,5m_total_pop,5m_reachfactor,10m_area,10m_total_pop,10m_reachfactor,15m_area,15m_total_pop,15m_reachfactor,20m_area,20m_total_pop,20m_reachfactor,25m_area,25m_total_pop,25m_reachfactor,30m_area,30m_total_pop,30m_reachfactor
+service,name,longitude,latitude,location_type,5m_area,5m_total_pop,5m_reachfactor,10m_area,10m_total_pop,10m_reachfactor,15m_area,15m_total_pop,15m_reachfactor,20m_area,20m_total_pop,20m_reachfactor,25m_area,25m_total_pop,25m_reachfactor,30m_area,30m_total_pop,30m_reachfactor
 Barnsley Metropolitan Borough Council,Cudworth,-1.4193452,53.5768238,destination,248546.66,947.0,0.712,914357.91,4447.0,0.6549,2347003.77,6403.0,0.7471,4068971.72,9419.0,0.7285,6312228.72,12033.0,0.7233,10126593.38,16502.0,0.8058
 Barnsley Metropolitan Borough Council,Darfield,-1.3733089,53.5334979,destination,334186.98,1415.0,0.9574,1151878.33,3739.0,0.825,2474771.49,6948.0,0.7877,4330567.74,8441.0,0.7754,7205930.54,9845.0,0.8257,10454144.42,10858.0,0.8319
 Barnsley Metropolitan Borough Council,Dodworth,-1.526522,53.542415,destination,328915.3,1001.0,0.9423,1399661.25,3188.0,1.0,3321344.97,5640.0,1.0,5539218.29,6559.0,0.9918,8688961.42,8260.0,0.9957,13287604.6,10557.0,1.0
@@ -629,11 +629,11 @@ East Riding of Yorkshire Council,Brough Library & Customer Service Centre,-0.568
 East Riding of Yorkshire Council,Cottingham Library & Customer Service Centre,-0.4150743,53.7813995,destination,304845.64,1681.0,0.8733,1233269.82,6422.0,0.8833,2745165.66,10316.0,0.8738,4978129.85,13700.0,0.8913,7547420.57,15887.0,0.8649,11537658.61,22449.0,0.9181
 East Riding of Yorkshire Council,Driffield Library & Customer Service Centre,-0.4410021,54.0049635,destination,365460.39,1284.0,1.0,1413370.62,6131.0,1.0,2989001.97,10538.0,0.9514,5060312.25,13144.0,0.906,7086608.73,13473.0,0.8121,8561123.71,13674.0,0.6813
 East Riding of Yorkshire Council,Flamborough Library,-0.1236612,54.1144282,destination,300386.32,705.0,0.8605,1163491.51,1791.0,0.8333,2482958.17,1967.0,0.7904,4171004.61,2044.0,0.7468,5466681.46,2176.0,0.6264,7111460.9,2216.0,0.5659
-East Riding of Yorkshire Council,Goole Library,-0.8710009,53.7039856,destination
-East Riding of Yorkshire Council,Haltemprice Library & Customer Service Centre,-0.4376223,53.7491417,destination
-East Riding of Yorkshire Council,Hedon Library & Customer Service Centre,-0.1990869,53.7407625,destination
-East Riding of Yorkshire Council,Hessle Library & Customer Service Centre,-0.4349692,53.724215,destination
-East Riding of Yorkshire Council,Hornsea Library & Customer Service Centre,-0.161787,53.911829,destination
+East Riding of Yorkshire Council,Goole Library,-0.8710009,53.7039856,destination,345396.44,1193.0,0.9895,1172803.03,6124.0,0.84,2381233.74,10957.0,0.758,4205331.7,16551.0,0.753,6681953.42,20003.0,0.7657,8784703.88,20576.0,0.6991
+East Riding of Yorkshire Council,Haltemprice Library & Customer Service Centre,-0.4376223,53.7491417,destination,367544.64,961.0,1.0,1564131.34,5208.0,1.0,3287007.77,11178.0,1.0,5350823.73,17080.0,0.9581,8005745.07,22954.0,0.9174,12000903.49,33116.0,0.955
+East Riding of Yorkshire Council,Hedon Library & Customer Service Centre,-0.1990,53.7407,destination,349453.5,1412.0,1.0,1484103.36,4413.0,1.0,2860931.91,7088.0,0.9107,4144986.52,7789.0,0.7422,5510758.08,8931.0,0.6315,8299153.08,9773.0,0.6604
+East Riding of Yorkshire Council,Hessle Library & Customer Service Centre,-0.4349692,53.724215,destination,331072.63,2156.0,0.9485,1304852.18,7121.0,0.9345,2889261.51,12190.0,0.9197,4623705.81,16452.0,0.8279,6871443.9,19663.0,0.7874,9507047.92,23123.0,0.7565
+East Riding of Yorkshire Council,Hornsea Library & Customer Service Centre,-0.161787,53.911829,destination,284743.49,841.0,0.8157,927416.29,2252.0,0.6642,1953755.02,5232.0,0.6219,3004826.93,7398.0,0.538,4137468.81,8269.0,0.4741,5512830.69,8455.0,0.4387
 East Riding of Yorkshire Council,Howden Library & Customer Service Centr,-0.8649168,53.7452661,destination,317556.34,1072.0,0.9097,1242847.21,2762.0,0.8901,2731540.13,3780.0,0.8695,4346112.97,3984.0,0.7782,6770308.42,4323.0,0.7758,8657680.12,4591.0,0.689
 East Riding of Yorkshire Council,Leven Library,-0.3104965,53.892423,destination,281761.65,418.0,0.8072,1026623.3,1731.0,0.7353,1884890.88,2302.0,0.6,3269443.54,2431.0,0.5854,4706348.17,2595.0,0.5393,7047929.63,3048.0,0.5609
 East Riding of Yorkshire Council,Market Weighton Library & Customer Service Centre,-0.6620741,53.8632001,destination,238131.4,958.0,0.6822,1209448.69,4605.0,0.8662,2762744.11,5951.0,0.8794,4292278.99,6249.0,0.7685,6157866.9,6353.0,0.7056,8771992.41,6472.0,0.6981
@@ -2649,11 +2649,11 @@ Worcestershire County Council,Hagley Library,-2.14388,52.4217324,destination,156
 Worcestershire County Council,Kidderminster Library,-2.2489807,52.3861271,destination,307698.1,285.0,0.8815,1354551.92,4054.0,0.9701,3221518.6,11916.0,1.0,6068519.97,22174.0,1.0,9365760.08,33185.0,1.0,13654294.74,45426.0,1.0
 Worcestershire County Council,Malvern Library,-2.3265428,52.112844,destination,345950.36,865.0,0.9911,1283807.0,2653.0,0.9195,2669561.76,5554.0,0.8497,4698978.38,10901.0,0.8413,7314887.73,19193.0,0.8382,11188328.89,26467.0,0.8903
 Worcestershire County Council,Pershore Library,-2.0767991,52.1113689,destination,364612.89,1050.0,1.0,1242916.49,4092.0,0.8902,2612321.69,6298.0,0.8315,4034311.68,6813.0,0.7223,6214336.33,7273.0,0.7121,9216122.54,7607.0,0.7334
-Worcestershire County Council,Redditch Library,-1.9401149,52.3063427,destination
-Worcestershire County Council,Rubery Library,-2.0228857,52.3925815,destination
-Worcestershire County Council,Stourport-on-Severn Library,-2.2830047,52.3394004,destination
-Worcestershire County Council,Tenbury Wells Library,-2.5937412,52.3119229,destination
-Worcestershire County Council,Upton-Upon-Severn Library,-2.2171356,52.061688,destination
+Worcestershire County Council,Redditch Library,-1.9401149,52.3063427,destination,316992.8,547.0,0.9081,1460092.89,5469.0,1.0,3489397.56,12341.0,1.0,6005827.88,18821.0,1.0,9651114.71,26383.0,1.0,13659731.8,35711.0,1.0
+Worcestershire County Council,Rubery Library,-2.0228,52.3925,destination,289477.58,1102.0,0.8293,1308091.78,5043.0,0.9369,2917733.55,10052.0,0.9287,5241013.42,14874.0,0.9384,8189770.84,21187.0,0.9385,12136217.77,26640.0,0.9658
+Worcestershire County Council,Stourport-on-Severn Library,-2.2830047,52.3394004,destination,346612.95,701.0,0.993,1363934.85,2365.0,0.9768,3163074.02,7275.0,1.0,5814465.0,13907.0,1.0,8927974.16,18022.0,1.0,12825959.45,19990.0,1.0
+Worcestershire County Council,Tenbury Wells Library,-2.5937412,52.3119229,destination,353510.72,880.0,1.0,1398550.05,2342.0,1.0,3103908.54,3508.0,0.988,5098496.29,3814.0,0.9129,7915265.25,3987.0,0.907,10503148.36,4126.0,0.8358
+Worcestershire County Council,Upton-Upon-Severn Library,-2.2171356,52.061688,destination,311478.26,931.0,0.8923,1362308.38,1707.0,0.9757,3147592.63,2134.0,1.0,4949486.58,2858.0,0.8862,8016669.65,3415.0,0.9186,11330869.84,3710.0,0.9017
 Worcestershire County Council,Woodrow Library,-1.9161612,52.2876194,destination,321853.75,1685.0,0.922,1350253.36,5401.0,0.967,2753916.67,8445.0,0.8766,5003345.7,12098.0,0.8958,8202791.2,19304.0,0.94,12407101.24,28742.0,0.9873
 Worcestershire County Council,Worcester St. John's Library,-2.2353543,52.1887182,destination,388355.17,1864.0,1.0,1551276.07,6654.0,1.0,3352233.63,11174.0,1.0,5680785.41,19478.0,1.0,9091897.03,30795.0,1.0,13207194.22,41436.0,1.0
 Worcestershire County Council,"Worcester, The Hive",-2.1928391,52.2074778,destination,197713.88,1185.0,0.5664,1061121.44,6651.0,0.76,2638965.94,13848.0,0.84,4895990.2,22374.0,0.8766,8029631.96,31491.0,0.9201,11446358.03,39915.0,0.9109
