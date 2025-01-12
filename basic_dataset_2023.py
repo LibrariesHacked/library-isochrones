@@ -8,9 +8,11 @@ import os.path
 import requests
 
 DATA_SOURCE = './data/basic-dataset-for-libraries-2023-enhanced.csv'
-OUTPUT_DIR = './data/isochrones/basic-dataset-for-libraries-2023'
+OUTPUT_DIR = './data/isochrones/basic-dataset-2023'
+OUTPUT_CSV = OUTPUT_DIR + '/basic-dataset-2023-analysis.csv'
+
+ORS_URL = 'https://api.openrouteservice.org/v2/isochrones/'
 ORS_API_KEY = ''
-OUTPUT_CSV = OUTPUT_DIR + '/basic-dataset-for-libraries-2023-analysis.csv'
 
 MODE = 'foot-walking'
 LOCATION_TYPES = ['destination']
@@ -115,9 +117,7 @@ def run():
             headers = {
                 'Accept': 'application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8', 'Authorization': ORS_API_KEY}
 
-            base_url = 'https://api.openrouteservice.org/v2/isochrones/'
-
-            url = base_url + MODE
+            url = ORS_URL + MODE
 
             response = requests.post(
                 url, json=body, headers=headers, timeout=600)
